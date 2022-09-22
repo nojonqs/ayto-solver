@@ -15,7 +15,51 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import RedirectView
+
+import frontend.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", RedirectView.as_view(pattern_name="person_overview"), name="home"),
+    path("person/", frontend.views.PersonOverview.as_view(), name="person_overview"),
+    path(
+        "person/create_male/",
+        frontend.views.MaleCreateView.as_view(),
+        name="male_create",
+    ),
+    path(
+        "person/create_female/",
+        frontend.views.FemaleCreateView.as_view(),
+        name="female_create",
+    ),
+    path(
+        "person/<int:pk>/delete/",
+        frontend.views.PersonDeleteView.as_view(),
+        name="person_delete",
+    ),
+    path("solve/", frontend.views.solve_matches, name="solve_matches"),
+    path(
+        "match/no_match/create/",
+        frontend.views.NoMatchCreateView.as_view(),
+        name="no_match_create",
+    ),
+    path(
+        "match/perfect_match/create/",
+        frontend.views.PerfectMatchCreateView.as_view(),
+        name="perfect_match_create",
+    ),
+    path(
+        "match/overview/", frontend.views.MatchOverview.as_view(), name="match_overview"
+    ),
+    path(
+        "match/<int:pk>/delete/",
+        frontend.views.MatchDeleteView.as_view(),
+        name="match_delete",
+    ),
+    path(
+        "reset/",
+        frontend.views.reset,
+        name="reset"
+    )
 ]

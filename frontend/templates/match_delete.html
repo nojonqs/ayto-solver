@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Match Deletion
+{% endblock %}
+
+{% block content %}
+    <form method="post">{% csrf_token %}
+        <p>Are you sure you want to delete {% if basematch.match_state == "no match" %}No {% elif basematch.match_state == "perfect match" %}Perfect {% endif %}Match between {{ basematch.female }} and {{ basematch.male }}?</p>
+        {{ form }}
+        <input type="submit" value="Confirm">
+    </form>
+{% endblock %}

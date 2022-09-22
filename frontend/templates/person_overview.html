@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Person Overview
+{% endblock %}
+
+{% block content %}
+    <a href="{% url "male_create" %}" class="btn mr-2">New Male</a>
+    <a href="{% url "female_create" %}" class="btn mr-2">New Female</a>
+    <a href="{% url "solve_matches" %}" class="btn mr-2">Solve!</a>
+    {% for person in person_list %}
+        <div class="card mt-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ person.name }}</h5>
+                <p class="card-text">Sex: {{ person.sex }}</p>
+            </div>
+            <div class="card-body">
+                <a href="{% url "person_delete" person.pk %}" class="card-link text-danger">Delete</a>
+                <a href="#" class="card-link"></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

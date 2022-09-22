@@ -1,0 +1,61 @@
+<! bootstrap starter template: include bootstrap>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+
+    <! title in the tab>
+    <title>
+        {% block title %} AYTO Solver {% endblock title %}
+    </title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+
+<body>
+<header class="p-3 bg-dark text-white navbar navbar-expand-md navbar-dark bg-dark flex-wrap">
+    <a href="{% url 'home' %}" class="navbar-brand">AYTO Solver</a>
+
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-3 d-flex">
+        {% with url_name=request.resolver_match.url_name %}
+            <li><a href="{% url 'person_overview' %}"
+                   class="nav-link px-2 ml-2 {% if 'person' in url_name %}text-secondary{% else %}text-white{% endif %}"><i
+                    class="bi bi-lightning"></i> Person</a>
+            </li>
+            <li><a href="{% url 'match_overview' %}"
+                   class="nav-link px-2 ml-2 {% if 'match' in url_name %}text-secondary{% else %}text-white{% endif %}"><i
+                    class="bi bi-file-earmark-spreadsheet"></i> Matches</a>
+            </li>
+            <li><a href="{% url 'reset' %}" class="nav-link px-2 ml-auto text-danger">RESET</a></li>
+        {% endwith %}
+    </ul>
+
+    <div class="text-end ml-auto">
+        {% if user.is_staff %}
+            <a href="{% url 'admin:login' %}" type="button" class="btn btn-warning mr-2">Admin</a>
+        {% endif %}
+    </div>
+</header>
+
+<! content to be filled by actual templates that implement this template>
+<div class="container">{% block content %} {% endblock content %}</div>
+
+{% block javascript %}{% endblock %}
+
+</body>
+</html>

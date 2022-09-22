@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Match Overview
+{% endblock %}
+
+{% block content %}
+    <a href="{% url "no_match_create" %}" class="btn mr-2">New No Match</a>
+    <a href="{% url "perfect_match_create" %}" class="btn mr-2">New Perfect Match</a>
+    <a href="{% url "solve_matches" %}" class="btn mr-2">Solve!</a>
+    {% for match in match_list %}
+        <div class="card mt-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ match.match_state.upper }}</h5>
+                <p class="card-text">{{ match.male }} + {{ match.female }}</p>
+            </div>
+            <div class="card-body">
+                <a href="{% url "match_delete" match.pk %}" class="card-link text-danger">Delete</a>
+                <a href="#" class="card-link"></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -13,8 +13,8 @@ def solve(people: list[Person], matches: list[BaseMatch]):
     # Get all fixed Male-Female combinations from the PerfectMatches
     fixed = []
     for match in perfect_matches:
-        males.remove(match.male)
-        females.remove(match.female)
+        males = [m for m in males if m.id != match.male.id]
+        females = [f for f in females if f.id != match.female.id]
         fixed.append((match.male, match.female))
 
     # We try to 'give' each non-fixed Male a Female

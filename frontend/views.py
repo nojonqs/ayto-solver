@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpRequest, HttpResponseNotModified
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DeleteView
 
@@ -65,12 +65,12 @@ class MatchDeleteView(DeleteView):
 
 
 def reset(request: HttpRequest, *args, **kwargs):
-    print(request.build_absolute_uri())
+    print("call")
     for m in BaseMatch.objects.all():
         m.delete()
     for p in Person.objects.all():
         p.delete()
-    return HttpResponseNotModified()
+    return HttpResponseRedirect(reverse_lazy("person_overview"))
 
 
 def solve_matches(*args, **kwargs):

@@ -16,6 +16,11 @@ class Person(models.Model):
     def __repr__(self):
         return self.__str__()
 
+    def __eq__(self, other):
+        if hasattr(other, "id"):
+            return self.id == other.id
+        return False
+
 
 class Male(Person):
     def save(self, *args, **kwargs):

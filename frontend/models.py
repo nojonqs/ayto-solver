@@ -21,6 +21,10 @@ class Person(models.Model):
             return self.id == other.id
         return False
 
+    def __hash__(self):
+        return hash(self.name) * hash(self.sex) + self.pk * hash("random")
+
+
 
 class Male(Person):
     def save(self, *args, **kwargs):
